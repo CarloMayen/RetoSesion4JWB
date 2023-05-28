@@ -8,12 +8,23 @@
 
 Para poder consultar esta lista se debe de ingresar a esta ruta url, con el método get
 
-> **GET:**  /currencies
+> **GET:** /currencies
 
 Ejemplo:
 
 ![currenciesListExample](./img/currenciesListExample.png)
 
+### **Listar todas las divisas con respecto a una en particular.**
+
+Para poder hacer esta operación se debe ingresar a esta dirección url,con el método get
+
+> **GET:** /currencies/MXN
+
+En este caso la variable que usaremos se pasa a través de la url, en la ultima sección de esta, en este caso es ***MXN***
+
+Ejemplo:
+
+![currencyExchangeExample](./img/AllExchangesByCurrencyExample.png)
 
 ### **Obtener el cambio de una divisa a otra.**
 
