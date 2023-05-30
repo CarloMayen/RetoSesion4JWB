@@ -1,12 +1,13 @@
 package neyam.currencies.services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import neyam.currencies.exception.CurrencyNotFoundException;
 import neyam.currencies.models.Currency;
 import neyam.currencies.models.Exchange;
 import neyam.currencies.utils.ExchangeFuncional;
@@ -16,8 +17,12 @@ public class CurrencyService {
 
     private Map<String, Currency> wallet;
     private final ExchangeFuncional exchg = item -> new Currency(item.getCurrencyTo().toUpperCase(),
-            item.getAmount() * wallet.get(item.getCurrencyTo().toUpperCase()).getValuesToOne()
+            Float.parseFloat(item.getAmount()) * wallet.get(item.getCurrencyTo().toUpperCase()).getValuesToOne()
                     / wallet.get(item.getCurrencyFrom().toUpperCase()).getValuesToOne());
+
+    public boolean exists(String currency) {
+        return wallet.containsKey(currency.toUpperCase());
+    }
 
     public CurrencyService() {
         wallet = new HashMap<String, Currency>();
@@ -33,12 +38,16 @@ public class CurrencyService {
     }
 
     public List<Currency> getAllExchangesById(String currency) {
+        if (!exists(currency)){
+            throw new CurrencyNotFoundException(currency);
+        }
+
         List<Currency> result = new LinkedList<Currency>();
-        for (Map.Entry item : wallet.entrySet()) {
-            if (item.getKey().equals(currency.toUpperCase()))
+        for (String key : wallet.keySet()) {
+            if (key.equals(currency.toUpperCase()))
                 continue;
 
-            result.add(exchg.exchange(new Exchange(1f, currency.toUpperCase(), (String) item.getKey())));
+            result.add(exchg.exchange(new Exchange("1", currency.toUpperCase(), key)));
         }
         return result;
     }

@@ -1,10 +1,11 @@
 package neyam.currencies.models;
 
 import jakarta.validation.constraints.NotBlank;
+import neyam.currencies.validation.AmountExchange;
 
 public class Exchange {
-    @NotBlank
-    private float amount;
+    @AmountExchange
+    private String amount;
     @NotBlank
     private String currencyFrom;
     @NotBlank
@@ -13,17 +14,17 @@ public class Exchange {
     public Exchange() {
     }
 
-    public Exchange(float amount, String currencyFrom, String currencyTo) {
+    public Exchange(String amount, String currencyFrom, String currencyTo) {
         this.amount = amount;
         this.currencyFrom = currencyFrom;
         this.currencyTo = currencyTo;
     }
 
-    public float getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
