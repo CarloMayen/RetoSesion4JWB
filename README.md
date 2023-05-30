@@ -36,7 +36,7 @@ Para poder mandar los parámetros, usaremos un objeto, el cual mandaremos por me
 
 ```
 {
-    "amount": 3,
+    "amount": "3",
     "currencyFrom": "EUR",
     "currencyTo": "CAD"
 }
